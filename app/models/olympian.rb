@@ -13,6 +13,14 @@ class Olympian < ApplicationRecord
     else
       sort = :DESC
     end
-    unscoped.order(age: sort).limit(1)
+    unscoped.order(age: sort).limit(1).take
+  end
+
+  def self.avg_weight(sex)
+    where({sex: sex}).average(:weight)
+  end
+
+  def self.avg_age
+    average(:age)
   end
 end
