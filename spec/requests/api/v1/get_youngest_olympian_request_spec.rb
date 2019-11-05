@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Olympians API' do
-  describe 'GET all olympians request' do
+  describe 'GET youngest olympian request' do
     before(:each) do
       @korea = Team.create!(name: "South Korea")
       @usa = Team.create!(name: "United States")
@@ -39,7 +39,7 @@ RSpec.describe 'Olympians API' do
       )
     end
 
-    it "returns a list of all olympians" do
+    it "returns the youngest olympian" do
       get '/api/v1/olympians?age=youngest'
 
       expect(response).to be_successful
