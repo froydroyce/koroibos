@@ -11,15 +11,16 @@ namespace :import do
     CSV.foreach('./lib/data/olympians.csv', options) do |row|
       team = Team.find_or_create_by(name: row[:team])
 
+      sport = Sport.find_or_create_by(name: row[:sport])
+
       olympian = Olympian.find_or_create_by(name: row[:name]) do |new_olym|
         new_olym.sex = row[:sex]
         new_olym.age = row[:age]
         new_olym.weight = row[:weight]
         new_olym.height = row[:height]
         new_olym.team = team
+        new_olym.sport = sport
       end
-
-      sport = Sport.find_or_create_by(name: row[:sport])
 
       event = Event.find_or_create_by(name: row[:event]) do |new_event|
         new_event.sport = sport
@@ -32,8 +33,6 @@ namespace :import do
           new_event.medal = row[:medal]
         end
       end
-
-      olympian.olympian_sports.find_or_create_by(sport: sport)
     end
   end
 end
