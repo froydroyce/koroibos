@@ -7,6 +7,7 @@ class CreateOlympians < ActiveRecord::Migration[5.2]
       t.integer :weight
       t.integer :height
       t.references :team, foreign_key: true
+      t.references :sport, foreign_key: true
     end
   end
 end
