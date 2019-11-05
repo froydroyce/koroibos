@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Olympians API' do
-  describe 'GET youngest olympian request' do
+  describe 'GET oldest olympian request' do
     before(:each) do
       @korea = Team.create!(name: "South Korea")
       @usa = Team.create!(name: "United States")
@@ -39,8 +39,8 @@ RSpec.describe 'Olympians API' do
       )
     end
 
-    it "returns the youngest olympian" do
-      get '/api/v1/olympians?age=youngest'
+    it "returns the oldest olympian" do
+      get '/api/v1/olympians?age=oldest'
 
       expect(response).to be_successful
 
@@ -49,11 +49,11 @@ RSpec.describe 'Olympians API' do
       expect(olympian["data"].count).to eq(1)
       expect(olympian["data"][0]).to have_key("id")
       expect(olympian["data"][0]).to have_key("type")
-      expect(olympian["data"][0]["attributes"]["name"]).to eq(@sejin.name)
-      expect(olympian["data"][0]["attributes"]["age"]).to eq(@sejin.age)
-      expect(olympian["data"][0]["attributes"]["sport"]).to eq(@sejin.sport.name)
-      expect(olympian["data"][0]["attributes"]["team"]).to eq(@sejin.team.name)
-      expect(olympian["data"][0]["attributes"]["total_medals_won"]).to eq(@sejin.total_medals_won.size)
+      expect(olympian["data"][0]["attributes"]["name"]).to eq(@jaren.name)
+      expect(olympian["data"][0]["attributes"]["age"]).to eq(@jaren.age)
+      expect(olympian["data"][0]["attributes"]["sport"]).to eq(@jaren.sport.name)
+      expect(olympian["data"][0]["attributes"]["team"]).to eq(@jaren.team.name)
+      expect(olympian["data"][0]["attributes"]["total_medals_won"]).to eq(@jaren.total_medals_won.size)
     end
   end
 end
