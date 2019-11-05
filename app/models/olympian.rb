@@ -6,4 +6,13 @@ class Olympian < ApplicationRecord
   has_many :total_medals_won, -> { medals }, class_name: "OlympianEvent"
 
   default_scope { order(id: :asc) }
+
+  def self.by_age(age)
+    if age == "youngest"
+      sort = :ASC
+    else
+      sort = :DESC
+    end
+    unscoped.order(age: sort).limit(1)
+  end
 end

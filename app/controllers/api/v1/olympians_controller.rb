@@ -8,6 +8,6 @@ class Api::V1::OlympiansController < ApplicationController
   private
 
   def olympian_facade
-    @facade = OlympianFacade.new
+    @facade = OlympianFacade.new(params[:age])
   end
 end
