@@ -1,6 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-require 'CSV'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
