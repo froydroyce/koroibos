@@ -46,14 +46,13 @@ RSpec.describe 'Olympians API' do
 
       olympian = JSON.parse(response.body)
 
-      expect(olympian["data"].count).to eq(1)
-      expect(olympian["data"][0]).to have_key("id")
-      expect(olympian["data"][0]).to have_key("type")
-      expect(olympian["data"][0]["attributes"]["name"]).to eq(@sejin.name)
-      expect(olympian["data"][0]["attributes"]["age"]).to eq(@sejin.age)
-      expect(olympian["data"][0]["attributes"]["sport"]).to eq(@sejin.sport.name)
-      expect(olympian["data"][0]["attributes"]["team"]).to eq(@sejin.team.name)
-      expect(olympian["data"][0]["attributes"]["total_medals_won"]).to eq(@sejin.total_medals_won.size)
+      expect(olympian["data"]).to have_key("id")
+      expect(olympian["data"]).to have_key("type")
+      expect(olympian["data"]["attributes"]["name"]).to eq(@sejin.name)
+      expect(olympian["data"]["attributes"]["age"]).to eq(@sejin.age)
+      expect(olympian["data"]["attributes"]["sport"]).to eq(@sejin.sport.name)
+      expect(olympian["data"]["attributes"]["team"]).to eq(@sejin.team.name)
+      expect(olympian["data"]["attributes"]["total_medals_won"]).to eq(@sejin.total_medals_won.size)
     end
   end
 end

@@ -5,7 +5,7 @@ class OlympianFacade
 
   def olympians
     if @age
-      Olympian.by_age(@age).includes(:team, :sport, :total_medals_won)
+      Olympian.includes(:team, :sport, :total_medals_won).by_age(@age)
     else
       Olympian.includes(:team, :sport, :total_medals_won)
     end

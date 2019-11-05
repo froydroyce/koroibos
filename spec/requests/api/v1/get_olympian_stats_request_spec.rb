@@ -1,14 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Olympian do
-  describe 'relations' do
-    it { should belong_to :team }
-    it { should belong_to :sport }
-    it { should have_many :olympian_events }
-    it { should have_many :events }
-  end
-
-  describe 'Class methods' do
+RSpec.describe 'Olympians API' do
+  describe 'GET olympians stats request' do
     before(:each) do
       @korea = Team.create!(name: "South Korea")
       @usa = Team.create!(name: "United States")
@@ -52,18 +45,21 @@ RSpec.describe Olympian do
       )
     end
 
-    it ".by_age(age)" do
-      expect(Olympian.by_age("youngest")).to eq(@jaren)
-      expect(Olympian.by_age("oldest")).to eq(@sejin)
-    end
+    it "returns a stats for all olympians" do
+      get '/api/v1/olympian_stats'
 
-    it ".avg_weight(sex)" do
-      expect(Olympian.avg_weight("M").to_f.round(1)).to eq(41.5)
-      expect(Olympian.avg_weight("F").to_f.round(1)).to eq(30.5)
-    end
+      expect(response).to be_successful
 
-    it ".avg_age" do
-      expect(Olympian.avg_age.to_f.round(1)).to eq(16.8)
+      stats = JSON.parse(response.body)
+
+      expect(stats["data"].count).to eq(3)
+      expect(stats["data"]).to have_key("id")
+      expect(stats["data"]).to have_key("type")
+      expect(stats["data"]["attributes"]).to have_key("total_competing_olympians")
+      expect(stats["data"]["attributes"]).to have_key("average_age")
+      expect(stats["data"]["attributes"]["average_weight"]).to have_key("unit")
+      expect(stats["data"]["attributes"]["average_weight"]).to have_key("male_olympians")
+      expect(stats["data"]["attributes"]["average_weight"]).to have_key("female_olympians")
     end
   end
 end
