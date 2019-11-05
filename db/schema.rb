@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_001230) do
+ActiveRecord::Schema.define(version: 2019_11_05_144422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,14 +26,8 @@ ActiveRecord::Schema.define(version: 2019_11_05_001230) do
     t.bigint "event_id"
     t.string "medal"
     t.index ["event_id"], name: "index_olympian_events_on_event_id"
+    t.index ["medal"], name: "index_olympian_events_on_medal"
     t.index ["olympian_id"], name: "index_olympian_events_on_olympian_id"
-  end
-
-  create_table "olympian_sports", force: :cascade do |t|
-    t.bigint "olympian_id"
-    t.bigint "sport_id"
-    t.index ["olympian_id"], name: "index_olympian_sports_on_olympian_id"
-    t.index ["sport_id"], name: "index_olympian_sports_on_sport_id"
   end
 
   create_table "olympians", force: :cascade do |t|
@@ -43,6 +37,8 @@ ActiveRecord::Schema.define(version: 2019_11_05_001230) do
     t.integer "weight"
     t.integer "height"
     t.bigint "team_id"
+    t.bigint "sport_id"
+    t.index ["sport_id"], name: "index_olympians_on_sport_id"
     t.index ["team_id"], name: "index_olympians_on_team_id"
   end
 
@@ -57,7 +53,6 @@ ActiveRecord::Schema.define(version: 2019_11_05_001230) do
   add_foreign_key "events", "sports"
   add_foreign_key "olympian_events", "events"
   add_foreign_key "olympian_events", "olympians"
-  add_foreign_key "olympian_sports", "olympians"
-  add_foreign_key "olympian_sports", "sports"
+  add_foreign_key "olympians", "sports"
   add_foreign_key "olympians", "teams"
 end
