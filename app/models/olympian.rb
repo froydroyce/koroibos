@@ -23,4 +23,11 @@ class Olympian < ApplicationRecord
   def self.avg_age
     average(:age)
   end
+
+  def self.event_medalists(id)
+    select("olympians.*, olympian_events.medal AS medal, events.name AS event")
+      .joins(:olympian_events, :events)
+      .where(olympian_events: {event_id: id})
+      .merge(OlympianEvent.medals)
+  end
 end

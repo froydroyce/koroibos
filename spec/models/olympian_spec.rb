@@ -13,6 +13,7 @@ RSpec.describe Olympian do
       @korea = Team.create!(name: "South Korea")
       @usa = Team.create!(name: "United States")
       @taekwondo = Sport.create!(name: "Tae Kwon Do")
+      @world_tkd = Event.create!(name: "World Tae Kwon Do", sport: @taekwondo)
       @boxing = Sport.create!(name: "Boxing")
       @sejin = Olympian.create!(
         name: "Sejin Kim",
@@ -50,6 +51,11 @@ RSpec.describe Olympian do
         team: @usa,
         sport: @boxing
       )
+      OlympianEvent.create!(
+        olympian: @sejin,
+        event: @world_tkd,
+        medal: "Gold"
+      )
     end
 
     it ".by_age(age)" do
@@ -64,6 +70,10 @@ RSpec.describe Olympian do
 
     it ".avg_age" do
       expect(Olympian.avg_age.to_f.round(1)).to eq(16.8)
+    end
+
+    it "event_medalists(id)" do
+      expect(Olympian.event_medalists(@world_tkd.id)[0]).to eq(@sejin)
     end
   end
 end
