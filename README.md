@@ -21,7 +21,7 @@ https://serene-reaches-07094.herokuapp.com/
 * SimpleCOV
 
 ## Database Diagram
-![schema](./public/images/food_and_meals_schema.png)
+![schema](https://i.imgur.com/Yt0aNzP.png)
 
 ## Local Setup
   ### Instructions:
